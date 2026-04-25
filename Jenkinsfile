@@ -51,10 +51,10 @@ pipeline {
                 unstash 'source-code'
 
                 sh """
-                docker build -t ${DOCKERHUB_USER}/${frontend_image}:${BUILD_NUMBER} / client 
+                docker build -t ${DOCKERHUB_USER}/${frontend_image}:${BUILD_NUMBER} ./client 
                 docker tag ${DOCKERHUB_USER}/${frontend_image}:${BUILD_NUMBER} ${DOCKERHUB_USER}/${frontend_image}:latest
 
-                docker build -t ${DOCKERHUB_USER}/${backend_image}:${BUILD_NUMBER} / server 
+                docker build -t ${DOCKERHUB_USER}/${backend_image}:${BUILD_NUMBER} ./server 
                 docker tag ${DOCKERHUB_USER}/${backend_image}:${BUILD_NUMBER} ${DOCKERHUB_USER}/${backend_image}:latest
                 """
             }
