@@ -1,5 +1,5 @@
 # =========================================================
-#  Node.js – Multi Stage (Production)
+#  React (Frontend – Production Build)
 # =========================================================
 
 # Build stage
@@ -9,13 +9,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm run build
 
 # Runtime stage
-FROM node:20-alpine
+FROM nginx:alpine
 
-WORKDIR /app
-COPY --from=build /app ./
+COPY --from=build /app/dist /usr/share/nginx/html
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]
